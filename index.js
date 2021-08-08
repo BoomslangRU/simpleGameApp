@@ -6,21 +6,23 @@ const timeHeader = document.querySelector('#time-header')
 const resultHeader = document.querySelector('#result-header')
 const gameTime = document.querySelector('#game-time')
 
+// array colors boxes
 const colors = ['#7474BF', '#348ac7', '#ffdde1', '#ee9ca7', '#99f2c8', '#f5af19', '#a17fe0']
+
+// local state
 let score = 0
 let isStartedGame = false
 
+// function show elements 
+const show = el => el.classList.remove('hide')
 
-const show = (el) => {
-    return el.classList.remove('hide')
-}
-
-const hide = (el) => {
-    return el.classList.add('hide')
-}
+// function hide elements
+const hide = el => el.classList.add('hide')
 
 
+// event subscription block and subsequent logic
 
+// logic of interaction with input
 gameTime.addEventListener('input', setGameTime = () => {
     let time = +gameTime.value
     timeGame.textContent = time.toFixed(1)
@@ -28,6 +30,7 @@ gameTime.addEventListener('input', setGameTime = () => {
     hide(resultHeader)
 })
 
+// logic of interaction with button
 start.addEventListener('click', () => {
     score = 0
     setGameTime()
@@ -36,6 +39,7 @@ start.addEventListener('click', () => {
     game.style.backgroundColor = 'white'
     hide(start)
 
+    // function => time counter
     const interval = setInterval(() => {
         let time = parseFloat(timeGame.textContent)
 
@@ -50,7 +54,8 @@ start.addEventListener('click', () => {
     renderBox()
 })
 
-game.addEventListener('click', (event) => {
+// logic of interaction with block div 
+game.addEventListener('click', event => {
     if (!isStartedGame) {
         return
     }
@@ -62,10 +67,9 @@ game.addEventListener('click', (event) => {
 
 
 
-const setGameScore = () => {
-    result.textContent = score.toString()
-}
+const setGameScore = () => result.textContent = score.toString()
 
+// the end of the game
 const endGame = () => {
     isStartedGame = false
     setGameScore()
@@ -77,7 +81,7 @@ const endGame = () => {
     show(resultHeader)
 }
 
-
+// logic for creating boxes
 const renderBox = () => {
     game.innerHTML = ''
 
@@ -99,6 +103,5 @@ const renderBox = () => {
     game.insertAdjacentElement('afterbegin', box)
 }
 
-const getRandom = (min, max) => {
-    return Math.floor(Math.random() * (max - min) + min)
-}
+// function of obtaining random numbers
+const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min)
